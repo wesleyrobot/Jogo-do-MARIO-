@@ -1,3 +1,7 @@
+
+
+https://github.com/user-attachments/assets/6f09f935-cd22-4a65-bff4-4f83a0e2cb33
+
 # Jogo do Mario - Mario Jump Game
 
 Um jogo de plataforma infinito onde você controla o Mario pulando sobre obstáculos e coletando moedas em 5 fases diferentes.
