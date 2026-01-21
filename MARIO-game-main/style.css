@@ -1,0 +1,725 @@
+/* ===== MARIO JUMP GAME - ESTILOS ===== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Arial', sans-serif;
+}
+
+/* ===== TELA INICIAL ===== */
+.start-screen {
+    text-align: center;
+    color: white;
+    padding: 40px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 20px;
+    border: 3px solid #e52521;
+    box-shadow: 0 0 30px rgba(229, 37, 33, 0.5);
+}
+
+.game-title {
+    font-size: 48px;
+    color: #e52521;
+    text-shadow: 3px 3px 0 #fbd000, 6px 6px 0 #43a047;
+    margin-bottom: 10px;
+    letter-spacing: 5px;
+}
+
+.game-subtitle {
+    font-size: 18px;
+    color: #fbd000;
+    margin-bottom: 30px;
+}
+
+.controls-info {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+.controls-info p {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+.start-button {
+    background: linear-gradient(180deg, #e52521 0%, #b71c1c 100%);
+    color: white;
+    border: none;
+    padding: 20px 50px;
+    font-size: 24px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 5px 20px rgba(229, 37, 33, 0.5);
+}
+
+.start-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 30px rgba(229, 37, 33, 0.8);
+}
+
+.high-score-display {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #fbd000;
+}
+
+/* ===== TELA DE PAUSE ===== */
+.pause-screen {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.9);
+    padding: 40px;
+    border-radius: 20px;
+    border: 3px solid #fbd000;
+    text-align: center;
+    z-index: 100;
+    color: white;
+}
+
+.pause-screen h2 {
+    font-size: 36px;
+    margin-bottom: 30px;
+    color: #fbd000;
+}
+
+.resume-button, .quit-button {
+    display: block;
+    width: 200px;
+    margin: 10px auto;
+    padding: 15px 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.resume-button {
+    background: #43a047;
+    color: white;
+}
+
+.resume-button:hover {
+    background: #2e7d32;
+    transform: scale(1.05);
+}
+
+.quit-button {
+    background: #e52521;
+    color: white;
+}
+
+.quit-button:hover {
+    background: #b71c1c;
+    transform: scale(1.05);
+}
+
+/* ===== GAME BOARD ===== */
+.game-board {
+    width: 90%;
+    max-width: 900px;
+    height: 500px;
+    border: 3px solid #333;
+    border-radius: 10px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    touch-action: manipulation;
+}
+
+/* ===== FASES/CENÁRIOS ===== */
+/* Fase 1 - Mundo Verde (Grassland) */
+.game-board.phase-1 {
+    background: linear-gradient(180deg, #5c94fc 0%, #87ceeb 40%, #5c94fc 70%, #8b4513 70%, #654321 100%);
+}
+
+/* Fase 2 - Mundo Subterrâneo (Underground/Cave) */
+.game-board.phase-2 {
+    background: linear-gradient(180deg, #1a1a2e 0%, #16213e 30%, #0f0f23 70%, #2d2d44 70%, #1a1a2e 100%);
+}
+
+/* Fase 3 - Mundo do Castelo (Castle/Lava) */
+.game-board.phase-3 {
+    background: linear-gradient(180deg, #2d1b00 0%, #4a2c00 30%, #1a0a00 70%, #8b0000 70%, #ff4500 85%, #ff6600 100%);
+}
+
+/* Fase 4 - Mundo Aquático (Water) */
+.game-board.phase-4 {
+    background: linear-gradient(180deg, #006994 0%, #40e0d0 30%, #00ced1 70%, #f4a460 70%, #deb887 100%);
+}
+
+/* Fase 5 - Mundo das Nuvens (Sky) */
+.game-board.phase-5 {
+    background: linear-gradient(180deg, #ff7f50 0%, #ffa07a 20%, #87ceeb 50%, #b0e0e6 70%, #ffffff 70%, #f0f0f0 100%);
+}
+
+/* ===== PARALLAX BACKGROUNDS ===== */
+.parallax-bg {
+    position: absolute;
+    width: 200%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+/* Fase 1 - Nuvens normais */
+.parallax-clouds {
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200"><ellipse cx="60" cy="60" rx="50" ry="30" fill="white"/><ellipse cx="90" cy="50" rx="40" ry="24" fill="white"/><ellipse cx="40" cy="55" rx="30" ry="20" fill="white"/><ellipse cx="260" cy="80" rx="60" ry="36" fill="white"/><ellipse cx="300" cy="70" rx="44" ry="28" fill="white"/><ellipse cx="230" cy="75" rx="35" ry="22" fill="white"/></svg>') repeat-x;
+    background-size: 600px 200px;
+    animation: parallax-slow 25s linear infinite;
+    z-index: 1;
+}
+
+/* Fase 2 - Caverna com estalactites */
+.phase-2 .parallax-clouds {
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200"><polygon points="30,0 40,60 50,0" fill="%23444"/><polygon points="80,0 95,80 110,0" fill="%23555"/><polygon points="150,0 160,50 170,0" fill="%23444"/><polygon points="220,0 235,70 250,0" fill="%23555"/><polygon points="300,0 315,90 330,0" fill="%23444"/><polygon points="360,0 370,55 380,0" fill="%23555"/><circle cx="50" cy="40" r="3" fill="%2300ffff" opacity="0.5"/><circle cx="150" cy="60" r="2" fill="%2300ffff" opacity="0.5"/><circle cx="280" cy="35" r="3" fill="%2300ffff" opacity="0.5"/></svg>') repeat-x;
+    background-size: 400px 200px;
+}
+
+/* Fase 3 - Castelo com lava */
+.phase-3 .parallax-clouds {
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200"><rect x="20" y="50" width="40" height="80" fill="%23333"/><rect x="25" y="30" width="10" height="30" fill="%23333"/><rect x="45" y="30" width="10" height="30" fill="%23333"/><rect x="30" y="60" width="8" height="12" fill="%23ff6600"/><rect x="42" y="60" width="8" height="12" fill="%23ff6600"/><rect x="150" y="40" width="60" height="100" fill="%23333"/><rect x="155" y="20" width="15" height="30" fill="%23333"/><rect x="180" y="20" width="15" height="30" fill="%23333"/><rect x="165" y="55" width="10" height="15" fill="%23ff6600"/><rect x="185" y="55" width="10" height="15" fill="%23ff6600"/><rect x="300" y="60" width="50" height="70" fill="%23333"/><rect x="305" y="40" width="12" height="30" fill="%23333"/><rect x="328" y="40" width="12" height="30" fill="%23333"/></svg>') repeat-x;
+    background-size: 400px 200px;
+}
+
+/* Fase 4 - Bolhas subaquáticas */
+.phase-4 .parallax-clouds {
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200"><circle cx="50" cy="50" r="8" fill="white" opacity="0.3"/><circle cx="55" cy="45" r="4" fill="white" opacity="0.5"/><circle cx="120" cy="80" r="12" fill="white" opacity="0.3"/><circle cx="128" cy="72" r="5" fill="white" opacity="0.5"/><circle cx="200" cy="40" r="6" fill="white" opacity="0.3"/><circle cx="280" cy="90" r="10" fill="white" opacity="0.3"/><circle cx="286" cy="84" r="4" fill="white" opacity="0.5"/><circle cx="350" cy="60" r="7" fill="white" opacity="0.3"/><ellipse cx="100" cy="150" rx="30" ry="10" fill="%23006400" opacity="0.6"/><ellipse cx="250" cy="160" rx="40" ry="12" fill="%23006400" opacity="0.6"/></svg>') repeat-x;
+    background-size: 400px 200px;
+    animation: parallax-slow 20s linear infinite, bubble-float 3s ease-in-out infinite;
+}
+
+/* Fase 5 - Nuvens coloridas do pôr do sol */
+.phase-5 .parallax-clouds {
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200"><ellipse cx="60" cy="60" rx="50" ry="30" fill="%23ffb6c1"/><ellipse cx="90" cy="50" rx="40" ry="24" fill="%23ffc0cb"/><ellipse cx="40" cy="55" rx="30" ry="20" fill="%23ffe4e1"/><ellipse cx="260" cy="80" rx="60" ry="36" fill="%23ffd700"/><ellipse cx="300" cy="70" rx="44" ry="28" fill="%23ffec8b"/><ellipse cx="230" cy="75" rx="35" ry="22" fill="%23fff8dc"/></svg>') repeat-x;
+    background-size: 600px 200px;
+}
+
+.parallax-mountains {
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200"><polygon points="0,200 80,80 160,200" fill="%2300a800"/><polygon points="100,200 200,60 300,200" fill="%2300c800"/><polygon points="250,200 350,100 450,200" fill="%2300a800"/></svg>') repeat-x;
+    background-size: 500px 200px;
+    background-position: bottom;
+    animation: parallax-medium 18s linear infinite;
+    z-index: 2;
+}
+
+/* Fase 2 - Rochas subterrâneas */
+.phase-2 .parallax-mountains {
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200"><polygon points="0,200 60,120 120,200" fill="%23333"/><polygon points="80,200 160,100 240,200" fill="%23444"/><polygon points="200,200 280,130 360,200" fill="%23333"/><rect x="50" y="150" width="20" height="50" fill="%23555"/><rect x="180" y="140" width="25" height="60" fill="%23555"/><rect x="300" y="160" width="15" height="40" fill="%23555"/></svg>') repeat-x;
+    background-size: 400px 200px;
+}
+
+/* Fase 3 - Pilares de lava */
+.phase-3 .parallax-mountains {
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200"><rect x="30" y="100" width="30" height="100" fill="%23222"/><rect x="35" y="180" width="20" height="20" fill="%23ff4500"/><rect x="120" y="80" width="40" height="120" fill="%23222"/><rect x="127" y="180" width="26" height="20" fill="%23ff4500"/><rect x="230" y="110" width="35" height="90" fill="%23222"/><rect x="236" y="180" width="23" height="20" fill="%23ff4500"/><rect x="330" y="90" width="30" height="110" fill="%23222"/><rect x="335" y="180" width="20" height="20" fill="%23ff4500"/></svg>') repeat-x;
+    background-size: 400px 200px;
+}
+
+/* Fase 4 - Corais */
+.phase-4 .parallax-mountains {
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200"><ellipse cx="50" cy="180" rx="30" ry="40" fill="%23ff6b6b"/><ellipse cx="55" cy="160" rx="15" ry="25" fill="%23ff8787"/><ellipse cx="150" cy="175" rx="40" ry="50" fill="%23ffa07a"/><ellipse cx="160" cy="150" rx="20" ry="30" fill="%23ffb6a0"/><ellipse cx="280" cy="180" rx="35" ry="45" fill="%239370db"/><ellipse cx="290" cy="155" rx="18" ry="28" fill="%23a890e0"/><ellipse cx="370" cy="185" rx="25" ry="35" fill="%2320b2aa"/></svg>') repeat-x;
+    background-size: 400px 200px;
+}
+
+/* Fase 5 - Plataformas de nuvens */
+.phase-5 .parallax-mountains {
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200"><ellipse cx="80" cy="160" rx="60" ry="20" fill="white"/><ellipse cx="60" cy="155" rx="25" ry="15" fill="%23f0f0f0"/><ellipse cx="100" cy="155" rx="25" ry="15" fill="%23f0f0f0"/><ellipse cx="250" cy="140" rx="70" ry="25" fill="white"/><ellipse cx="225" cy="133" rx="30" ry="18" fill="%23f0f0f0"/><ellipse cx="275" cy="133" rx="30" ry="18" fill="%23f0f0f0"/></svg>') repeat-x;
+    background-size: 400px 200px;
+}
+
+.parallax-ground {
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect x="0" y="0" width="32" height="8" fill="%2300c800"/><rect x="0" y="8" width="32" height="24" fill="%23c84c0c"/><rect x="0" y="12" width="8" height="4" fill="%23a83000"/><rect x="16" y="16" width="8" height="4" fill="%23a83000"/><rect x="8" y="24" width="8" height="4" fill="%23a83000"/></svg>') repeat-x;
+    background-size: 64px 64px;
+    background-position: bottom;
+    height: 64px;
+    top: auto;
+    bottom: 0;
+    animation: parallax-fast 2s linear infinite;
+    z-index: 3;
+}
+
+/* Fase 2 - Chão de pedra */
+.phase-2 .parallax-ground {
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect x="0" y="0" width="32" height="8" fill="%23555"/><rect x="0" y="8" width="32" height="24" fill="%23333"/><rect x="0" y="10" width="10" height="6" fill="%23444"/><rect x="12" y="14" width="8" height="5" fill="%23444"/><rect x="22" y="10" width="10" height="6" fill="%23444"/><rect x="5" y="22" width="12" height="5" fill="%23444"/><rect x="20" y="20" width="10" height="6" fill="%23444"/></svg>') repeat-x;
+    background-size: 64px 64px;
+}
+
+/* Fase 3 - Chão de lava/castelo */
+.phase-3 .parallax-ground {
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect x="0" y="0" width="32" height="8" fill="%23444"/><rect x="0" y="8" width="32" height="24" fill="%23ff4500"/><rect x="0" y="10" width="8" height="4" fill="%23ff6600"/><rect x="16" y="14" width="10" height="4" fill="%23ff6600"/><rect x="6" y="20" width="12" height="4" fill="%23ff6600"/><rect x="24" y="18" width="8" height="6" fill="%23ff6600"/></svg>') repeat-x;
+    background-size: 64px 64px;
+    animation: parallax-fast 2s linear infinite, lava-glow 1s ease-in-out infinite;
+}
+
+/* Fase 4 - Chão de areia */
+.phase-4 .parallax-ground {
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect x="0" y="0" width="32" height="8" fill="%23f4a460"/><rect x="0" y="8" width="32" height="24" fill="%23deb887"/><rect x="2" y="10" width="6" height="4" fill="%23d2b48c"/><rect x="14" y="14" width="8" height="4" fill="%23d2b48c"/><rect x="24" y="10" width="6" height="4" fill="%23d2b48c"/><circle cx="8" cy="20" r="2" fill="%23c19a6b"/><circle cx="20" cy="22" r="3" fill="%23c19a6b"/></svg>') repeat-x;
+    background-size: 64px 64px;
+}
+
+/* Fase 5 - Chão de nuvens */
+.phase-5 .parallax-ground {
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect x="0" y="0" width="32" height="32" fill="white"/><ellipse cx="8" cy="4" rx="10" ry="6" fill="%23f8f8f8"/><ellipse cx="24" cy="6" rx="12" ry="8" fill="%23f8f8f8"/><rect x="0" y="10" width="32" height="22" fill="%23f0f0f0"/></svg>') repeat-x;
+    background-size: 64px 64px;
+}
+
+@keyframes lava-glow {
+    0%, 100% { filter: brightness(1); }
+    50% { filter: brightness(1.2); }
+}
+
+@keyframes bubble-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes parallax-slow {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+@keyframes parallax-medium {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+@keyframes parallax-fast {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+/* ===== FASE INDICATOR ===== */
+.phase-indicator {
+    position: absolute;
+    top: 10px;
+    right: 120px;
+    z-index: 15;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    background: rgba(0, 0, 0, 0.5);
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+/* ===== SCORE BOARD ===== */
+.score-board {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 15;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px 15px;
+    border-radius: 10px;
+}
+
+.score-board > div {
+    margin: 3px 0;
+}
+
+.lives {
+    font-size: 20px;
+}
+
+/* ===== GAME OVER SCORES ===== */
+.game-over-scores {
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 12;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    text-align: center;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 15px 25px;
+    border-radius: 10px;
+}
+
+.game-over-scores div {
+    margin: 5px 0;
+}
+
+/* ===== BUTTONS ===== */
+.sound-toggle, .pause-button {
+    position: absolute;
+    top: 10px;
+    z-index: 15;
+    background: rgba(0,0,0,0.5);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.sound-toggle {
+    right: 10px;
+}
+
+.pause-button {
+    right: 60px;
+}
+
+.sound-toggle:hover, .pause-button:hover {
+    background: rgba(0,0,0,0.7);
+}
+
+.restart-button, .menu-button {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 11;
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.restart-button {
+    top: 80%;
+    background: linear-gradient(180deg, #43a047 0%, #2e7d32 100%);
+}
+
+.menu-button {
+    top: 88%;
+    background: linear-gradient(180deg, #1976d2 0%, #0d47a1 100%);
+}
+
+.restart-button:hover, .menu-button:hover {
+    transform: translateX(-50%) scale(1.1);
+}
+
+/* ===== OBSTACLES ===== */
+.obstacle {
+    position: absolute;
+    bottom: 0;
+    right: -90px;
+    animation: obstacle-animation 2s linear;
+    z-index: 5;
+    image-rendering: pixelated;
+}
+
+.obstacle.goomba {
+    width: 80px;
+    height: 80px;
+}
+
+.obstacle.pipe {
+    width: 80px;
+    height: 120px;
+}
+
+.obstacle.goomba.dead,
+.obstacle.koopa.dead {
+    transform: scaleY(0.3);
+    opacity: 0.7;
+}
+
+.obstacle.koopa {
+    width: 70px;
+    height: 90px;
+}
+
+.obstacle.piranha {
+    width: 80px;
+    height: 120px;
+}
+
+.obstacle.spiny {
+    width: 70px;
+    height: 70px;
+}
+
+.obstacle.spiny.dead {
+    transform: rotate(180deg) scaleY(0.5);
+    opacity: 0.7;
+}
+
+.obstacle.bulletBill {
+    width: 90px;
+    height: 60px;
+    bottom: auto;
+}
+
+.obstacle.bulletBill.dead {
+    transform: rotate(45deg);
+    opacity: 0.5;
+}
+
+.obstacle.piranha.dead {
+    transform: scaleY(0.3);
+    opacity: 0.7;
+}
+
+/* ===== BLOCO DE INTERROGAÇÃO ===== */
+.question-block {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    right: -60px;
+    animation: block-animation 2.5s linear;
+    z-index: 5;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><rect x="0" y="0" width="16" height="16" fill="%23e09000"/><rect x="1" y="1" width="14" height="14" fill="%23f8b800"/><rect x="2" y="2" width="12" height="12" fill="%23e09000"/><rect x="3" y="3" width="10" height="10" fill="%23f8b800"/><text x="8" y="12" font-size="10" fill="%23a05000" text-anchor="middle" font-weight="bold">?</text></svg>');
+    background-size: cover;
+    image-rendering: pixelated;
+}
+
+.question-block.used {
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><rect x="0" y="0" width="16" height="16" fill="%23885000"/><rect x="1" y="1" width="14" height="14" fill="%23a06800"/><rect x="2" y="2" width="12" height="12" fill="%23885000"/></svg>');
+}
+
+@keyframes block-animation {
+    from { right: -60px; }
+    to { right: 100%; }
+}
+
+/* ===== POWER-UPS ===== */
+.powerup {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    right: -50px;
+    animation: powerup-animation 2.5s linear;
+    z-index: 6;
+    image-rendering: pixelated;
+}
+
+.powerup.mushroom {
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><ellipse cx="8" cy="6" rx="7" ry="5" fill="%23e52521"/><circle cx="5" cy="5" r="2" fill="white"/><circle cx="11" cy="5" r="2" fill="white"/><circle cx="8" cy="3" r="1.5" fill="white"/><rect x="4" y="10" width="8" height="5" fill="%23f8d878"/><rect x="6" y="11" width="2" height="1" fill="%23000"/><rect x="10" y="11" width="2" height="1" fill="%23000"/></svg>');
+    background-size: cover;
+}
+
+.powerup.star {
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9 13,15 8,11 3,15 5,9 1,6 6,6" fill="%23fbd000"/><circle cx="6" cy="7" r="1" fill="%23000"/><circle cx="10" cy="7" r="1" fill="%23000"/></svg>');
+    background-size: cover;
+    animation: powerup-animation 2.5s linear, star-glow 0.3s ease-in-out infinite;
+}
+
+.powerup.sonic {
+    background: url('./imagens/sonic.gif');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    animation: powerup-animation 2.5s linear, sonic-glow 0.2s ease-in-out infinite;
+}
+
+@keyframes sonic-glow {
+    0%, 100% { filter: brightness(1) drop-shadow(0 0 5px #0066ff); }
+    50% { filter: brightness(1.3) drop-shadow(0 0 10px #00aaff); }
+}
+
+.mario.sonic-mode {
+    animation: sonic-speed 0.1s linear infinite;
+}
+
+@keyframes sonic-speed {
+    0%, 100% { filter: hue-rotate(200deg) brightness(1.2) drop-shadow(0 0 10px #00aaff); }
+    50% { filter: hue-rotate(220deg) brightness(1.4) drop-shadow(0 0 15px #0066ff); }
+}
+
+@keyframes powerup-animation {
+    from { right: -50px; }
+    to { right: 100%; }
+}
+
+@keyframes star-glow {
+    0%, 100% { filter: brightness(1); }
+    50% { filter: brightness(1.5); }
+}
+
+/* ===== COIN ===== */
+.coin {
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    right: -45px;
+    animation: coin-animation 2s linear;
+    z-index: 5;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="%23fbd000"/><circle cx="8" cy="8" r="5" fill="%23e09000"/><circle cx="8" cy="8" r="3" fill="%23fbd000"/></svg>');
+    background-size: cover;
+    image-rendering: pixelated;
+}
+
+@keyframes coin-animation {
+    from { right: -45px; }
+    to { right: 100%; }
+}
+
+/* ===== MARIO ===== */
+.mario {
+    width: 100px;
+    height: auto;
+    position: absolute;
+    bottom: 0;
+    left: 50px;
+    z-index: 10;
+}
+
+.mario.invincible {
+    animation: invincible-flash 0.1s linear infinite;
+}
+
+@keyframes invincible-flash {
+    0%, 50% { filter: hue-rotate(0deg) brightness(1.2); }
+    25% { filter: hue-rotate(90deg) brightness(1.5); }
+    75% { filter: hue-rotate(180deg) brightness(1.5); }
+}
+
+.jump {
+    animation: mario-jump 500ms ease-out;
+}
+
+.hit {
+    animation: mario-hit 200ms ease-in-out;
+}
+
+@keyframes mario-hit {
+    0%, 100% { filter: brightness(1); }
+    50% { filter: brightness(2) sepia(1) saturate(5) hue-rotate(-50deg); }
+}
+
+/* ===== GAME OVER MESSAGE ===== */
+.game-over-message {
+    width: 400px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    display: none;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes obstacle-animation {
+    from { right: -90px; }
+    to { right: 100%; }
+}
+
+@keyframes mario-jump {
+    0% { bottom: 0; }
+    40% { bottom: 220px; }
+    50% { bottom: 220px; }
+    60% { bottom: 220px; }
+    100% { bottom: 0; }
+}
+
+/* ===== SCORE POPUP ===== */
+.score-popup {
+    position: absolute;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fbd000;
+    text-shadow: 2px 2px 2px rgba(0,0,0,0.8);
+    z-index: 20;
+    animation: score-float 1s ease-out forwards;
+    pointer-events: none;
+}
+
+@keyframes score-float {
+    0% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-50px); }
+}
+
+/* ===== NEW RECORD ANIMATION ===== */
+.new-record {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 32px;
+    color: #fbd000;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    animation: pulse 0.5s ease-in-out infinite;
+    z-index: 20;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.2); }
+}
+
+/* ===== PHASE TRANSITION ===== */
+.phase-transition {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 36px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.8);
+    z-index: 25;
+    animation: phase-text 2s ease-in-out forwards;
+}
+
+@keyframes phase-text {
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+    20% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+    80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+    .game-board {
+        height: 400px;
+    }
+
+    .game-title {
+        font-size: 32px;
+    }
+
+    .start-button {
+        padding: 15px 35px;
+        font-size: 20px;
+    }
+
+    .mario {
+        width: 80px;
+        height: auto;
+    }
+
+    .score-board {
+        font-size: 14px;
+    }
+
+    .obstacle.goomba {
+        width: 65px;
+        height: 65px;
+    }
+
+    .obstacle.pipe {
+        width: 65px;
+        height: 100px;
+    }
+}

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Jogo do Mario - Plataforma infinita com 5 fases únicas">
+        <meta name="keywords" content="mario, jogo, plataforma, html5, javascript">
+        <meta name="author" content="Wesley">
+
+        <link rel="stylesheet" href="./style.css">
+        
+        <!-- Scripts em ordem correta de dependência -->
+        <script src="./config.js" defer></script>
+        <script src="./utils.js" defer></script>
+        <script src="./audio.js" defer></script>
+        <script src="./game.js" defer></script>
+
+        <title>Mario Jump Game 🍄</title>
+    </head>
+
+    <body>
+        <!-- Tela Inicial -->
+        <div class="start-screen" id="start-screen">
+            <h1 class="game-title">MARIO JUMP</h1>
+            <p class="game-subtitle">Desvie dos obstáculos e colete moedas!</p>
+            <div class="controls-info">
+                <p>⬆️ Pular: Espaço, W ou ↑</p>
+                <p>⬅️➡️ Mover: A/D ou ←/→</p>
+                <p>📱 Mobile: Esquerda/Centro/Direita da tela</p>
+                <p>⏸️ Pause: ESC ou P</p>
+            </div>
+            <button class="start-button" id="start-button">🎮 JOGAR</button>
+            <div class="high-score-display">
+                Recorde: <span id="menu-high-score">0</span>
+            </div>
+        </div>
+
+        <!-- Tela de Pause -->
+        <div class="pause-screen" id="pause-screen" style="display: none;">
+            <h2>⏸️ PAUSADO</h2>
+            <button class="resume-button" id="resume-button">▶️ Continuar</button>
+            <button class="quit-button" id="quit-button">🏠 Menu</button>
+        </div>
+
+        <!-- Jogo -->
+        <div class="game-board" id="game-board" style="display: none;">
+            <!-- Fundo Parallax -->
+            <div class="parallax-bg parallax-clouds"></div>
+            <div class="parallax-bg parallax-mountains"></div>
+            <div class="parallax-bg parallax-ground"></div>
+
+            <div class="score-board">
+                <div class="score">Pontos: <span id="score">0</span></div>
+                <div class="high-score">Recorde: <span id="high-score">0</span></div>
+                <div class="coins">🪙 <span id="coins">0</span></div>
+                <div class="lives">
+                    <span id="lives-display">❤️❤️❤️</span>
+                </div>
+            </div>
+            <div class="phase-indicator">Fase: <span id="phase">1</span></div>
+            <img src="./imagens/mario.gif" class="mario" alt="Mario">
+            <img src="" class="game-over-message" alt="Game Over">
+            <div class="game-over-scores" style="display: none;">
+                <div>Pontos: <span id="final-score">0</span></div>
+                <div>Moedas: <span id="final-coins">0</span></div>
+                <div>Recorde: <span id="final-high-score">0</span></div>
+            </div>
+            <button class="restart-button" style="display: none;">Reiniciar Jogo</button>
+            <button class="menu-button" style="display: none;">Menu Principal</button>
+            <button class="sound-toggle" id="sound-toggle" title="Toggle Som">🔊</button>
+            <button class="pause-button" id="pause-button" title="Pausar">⏸️</button>
+        </div>
+    </body>
+</html>
